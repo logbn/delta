@@ -1,4 +1,4 @@
-package delta
+package mvfifo
 
 import (
 	"container/list"
@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	// DefaultMaxSizeBytes sets the default max size at 256 MB
-	DefaultMaxSizeBytes = 256 * 2 << 20
+	// DefaultMaxSizeBytes sets the default max size at 64 MiB
+	DefaultMaxSizeBytes = 1 << 26
 
 	overhead = 16
 	itemPool = sync.Pool{
@@ -119,7 +119,6 @@ func (c *Cache) Iter(key string) iter.Seq2[uint64, []byte] {
 		c.mutex.RLock()
 		defer c.mutex.RUnlock()
 		kl, ok := c.vals[key]
-		println(kl, ok)
 		if !ok {
 			return
 		}

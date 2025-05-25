@@ -1,4 +1,4 @@
-package delta
+package mvfifo
 
 type Option func(*Cache)
 
