@@ -1,6 +1,6 @@
-# Multi Value FIFO
+# Multi Value FIFO Cache
 
-A multi value FIFO cache for lists of byte slices.
+A multi value FIFO cache for byte slices.
 
 [![Go Reference](https://godoc.org/github.com/logbn/mvfifo?status.svg)](https://godoc.org/github.com/logbn/mvfifo)
 [![License](https://img.shields.io/badge/License-Apache_2.0-dd6600.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -13,7 +13,7 @@ of all items in the cache rather than the total number of items in the cache to 
 
 ## Usage
 
-The maximum size of the cache can be specified in bytes (default 64 MiB).
+The maximum size of the cache can be specified in bytes (default 256 MiB).
 
 ```go
 import "github.com/logbn/mvfifo"
@@ -45,7 +45,7 @@ for cursor, value := range c.Iter("test-2") {
     println(cursor, string(value))
 }
 // output:
-//   1 test-c
+//   3 test-c
 ```
 
 Values can be iterated for any key after a specified cursor value (non-inclusive)
@@ -58,9 +58,13 @@ for cursor, value := range c.IterAfter("test-1", 1) {
 //   2 test-b
 ```
 
-The calling code is responsible for ensuring that cursors increase over time and never decrease.  
+The cursor is used only for range iteration, not for sorting.  
 The cache makes no attempt to reorder values based on the value of inserted cursors.  
-The cursor is used only for range iteration, not for sorting.
+The calling code is responsible for ensuring that cursors increase over time and never decrease.
+
+## Concurrency
+
+This package is thread safe.
 
 ## License
 

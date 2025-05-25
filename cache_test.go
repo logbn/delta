@@ -7,7 +7,7 @@ import (
 )
 
 func TestCache(t *testing.T) {
-	c := New(WithMaxSizeBytes(3 * (20 + overhead)))
+	c := NewCache(WithMaxSizeBytes(3 * (20 + overhead)))
 	t.Run(`iter`, func(t *testing.T) {
 		c.Add("test-key", 1, []byte("test-value-1"))
 		c.Add("test-key", 2, []byte("test-value-2"))

@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	// DefaultMaxSizeBytes sets the default max size at 64 MiB
-	DefaultMaxSizeBytes = 1 << 26
+	// DefaultMaxSizeBytes sets the default max size at 256 MiB
+	DefaultMaxSizeBytes = 256 << 20
 
 	overhead = 16
 	itemPool = sync.Pool{
@@ -34,7 +34,7 @@ type Cache struct {
 }
 
 // New returns a new [Cache].
-func New(opts ...Option) *Cache {
+func NewCache(opts ...Option) *Cache {
 	c := &Cache{
 		maxSize: DefaultMaxSizeBytes,
 		vals:    map[string]*list.List{},
