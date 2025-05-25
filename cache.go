@@ -33,7 +33,7 @@ type Cache struct {
 	vals    map[string]*list.List
 }
 
-// New returns a new [Cache].
+// NewCache returns a new [Cache].
 func NewCache(opts ...Option) *Cache {
 	c := &Cache{
 		maxSize: DefaultMaxSizeBytes,
